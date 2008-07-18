@@ -1,0 +1,8 @@
+Revision history for Perl extension CGI::Application::Bouquet::Rose.
+
+1.01  Sun Jun 29 09:46:00 2008
+- Add Config::IniFiles to Build.PL and Makefile.PL, since it is used by CGI::Application::Bouquet::Rose::Config
+- Ship Changelog.ini. See Module:Metadata::Changes
+	
+1.00  Thu May 22 13:13:13 2008
+- Original version
