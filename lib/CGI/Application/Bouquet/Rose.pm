@@ -336,7 +336,7 @@ must restrict usage of the generated code to trusted persons.
 	output_dir:      ./lib
 	prefix:          Local::Wine::CGI
 	remove:          0
-	tmpl_path:       ../CGI-Application-Bouquet-Rose-1.00/templates
+	tmpl_path:       ../CGI-Application-Bouquet-Rose/templates
 	verbose:         1
 	Working dir:     lib/Local/Wine/CGI
 	Rose::DB module: Local::Wine::Base::DB
@@ -479,7 +479,7 @@ These templates are input to the code generation process.
 
 If not specified, the value defaults to the value in lib/CGI/Application/Bouquet/Rose/.htcgi.bouquet.conf.
 
-The default value is ../CGI-Application-Bouquet-Rose-1.00/templates.
+The default value is ../CGI-Application-Bouquet-Rose/templates.
 
 Note: The point of the '../' is because I assume you have done 'cd Local-Wine-1.06'
 or the equivalent for whatever module you are working with.
