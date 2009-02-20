@@ -190,7 +190,7 @@ Return the value of 'verbose' from the config file lib/CGI/Application/Bouquet/R
 
 =head1 Author
 
-C<CGI::Application::Bouquet::Rose::Config> was written by Ron Savage in 2008. [ron@savage.net.au]
+C<CGI::Application::Bouquet::Rose::Config> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2008.
 
 Home page: http://savage.net.au/index.html
 

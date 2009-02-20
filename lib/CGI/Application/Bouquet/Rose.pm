@@ -676,7 +676,7 @@ See C<bin/cgi.app.gen.pl> for an example of how to call C<run()>.
 
 =head1 Author
 
-C<CGI::Application::Bouquet::Rose> was written by Ron Savage in 2008. [ron@savage.net.au]
+C<CGI::Application::Bouquet::Rose> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2008.
 
 Home page: http://savage.net.au/index.html
 
