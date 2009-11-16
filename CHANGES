@@ -1,5 +1,9 @@
 Revision history for Perl extension CGI::Application::Bouquet::Rose.
 
+1.03  Fri Nov 13 13:20:00 2009
+	- Run dos2unix
+	- Rename Changes.txt to CHANGES
+
 1.02  Tue Jul 22 14:41:00 2008
 - Rename CHANGES to Changes.txt to match my other modules
 
