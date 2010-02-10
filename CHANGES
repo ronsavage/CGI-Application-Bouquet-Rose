@@ -1,5 +1,8 @@
 Revision history for Perl extension CGI::Application::Bouquet::Rose.
 
+1.04  Wed Feb 10 13:52:31 2010
+	- Add META.yml. Update MANIFEST.SKIP. Add MANIFEST and MYMETA.yml.
+
 1.03  Fri Nov 13 13:20:00 2009
 	- Run dos2unix
 	- Rename Changes.txt to CHANGES
