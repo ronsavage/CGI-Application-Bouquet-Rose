@@ -14,6 +14,13 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: CGI-Application-Bouquet-Rose
+provides:
+  CGI::Application::Bouquet::Rose:
+    file: lib/CGI/Application/Bouquet/Rose.pm
+    version: 1.03
+  CGI::Application::Bouquet::Rose::Config:
+    file: lib/CGI/Application/Bouquet/Rose/Config.pm
+    version: 1.03
 requires:
   Carp: 0
   Config::IniFiles: 0

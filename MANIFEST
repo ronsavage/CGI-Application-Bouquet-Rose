@@ -20,3 +20,4 @@ templates/run.mode.pm.tmpl
 templates/search.fcgi.tmpl
 templates/search.form.tmpl
 templates/web.page.tmpl
+META.yml
