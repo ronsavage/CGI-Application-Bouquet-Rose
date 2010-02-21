@@ -56,7 +56,7 @@ Note: HTML::Template is used as the template processor.
 Typical usage:
 
 Download http://savage.net.au/Perl/Local-Wine-1.06.tgz
-	
+
 	shell> cd /home/yourself/perl.modules
 	shell> tar xvzf Local-Wine-1.06.tgz
 	shell> less README
@@ -73,7 +73,7 @@ The path to the web server's doc root.
 
 If not specified, the value defaults to the value in lib/CGI/Application/Bouquet/Rose/.htcgi.bouquet.conf.
 
-The option defaults to /home/ron/httpd/prefork/htdocs.
+The option defaults to /var/www.
 
 Several templates are copied to a directory below this point.
 
