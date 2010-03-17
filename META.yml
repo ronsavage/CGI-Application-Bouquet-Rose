@@ -16,10 +16,10 @@ name: CGI-Application-Bouquet-Rose
 provides:
   CGI::Application::Bouquet::Rose:
     file: lib/CGI/Application/Bouquet/Rose.pm
-    version: 1.03
+    version: 1.05
   CGI::Application::Bouquet::Rose::Config:
     file: lib/CGI/Application/Bouquet/Rose/Config.pm
-    version: 1.03
+    version: 1.05
 requires:
   Carp: 0
   Config::IniFiles: 0
@@ -29,4 +29,4 @@ requires:
   HTML::Template: 0
 resources:
   license: http://opensource.org/licenses/artistic-license.php
-version: 1.03
+version: 1.05
