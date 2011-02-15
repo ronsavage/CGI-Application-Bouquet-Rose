@@ -1,5 +1,9 @@
 Revision history for Perl extension CGI::Application::Bouquet::Rose.
 
+1.06  Tue Fev 15 16:49:00 2011
+	- Replace /usr/bin/perl with /usr/bin/env perl.
+	- Replace common::sense with use strict and use warnings, to get uninit var warnings.
+
 1.05  Sun Feb 21 12:54:20 2010
 	- Remove text 'All rights reserved' (for Debian licensing).
 	- Remove POD heads 'Required Modules' and 'Changes'.
