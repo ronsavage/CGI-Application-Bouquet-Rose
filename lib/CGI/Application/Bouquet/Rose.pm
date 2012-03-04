@@ -308,7 +308,7 @@ sub run
 
 =head1 NAME
 
-C<CGI::Application::Bouquet::Rose> - Generate a set of CGI::Application-based classes
+CGI::Application::Bouquet::Rose - Generate a set of CGI::Application-based classes
 
 =head1 Synopsis
 
