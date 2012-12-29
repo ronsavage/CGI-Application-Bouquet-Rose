@@ -3,7 +3,7 @@ use Module::Build;
 my($builder) = Module::Build -> new
 (
  module_name    => 'CGI::Application::Bouquet::Rose',
- license        => 'perl_5',
+ license        => 'artistic_2',
  dist_abstract  => 'Generate a set of CGI::Application-based classes',
  dist_author    => 'Ron Savage <ron@savage.net.au>',
  build_requires =>
