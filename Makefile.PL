@@ -21,6 +21,7 @@ WriteMakefile
 	},
 	DISTNAME  => 'CGI::Application::Bouquet::Rose',
 	NAME      => 'CGI-Application-Bouquet-Rose',
+	LICENSE   => 'perl_5',
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
