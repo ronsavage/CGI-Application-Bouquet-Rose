@@ -31,7 +31,7 @@ WriteMakefile
 		File::Path       => 0,
 		File::Spec       => 0,
 		HTML::Template   => 0,
-		Test::Simple     => 0.94,
+		Test::More     => 0.94,
 		Test::Pod        => 1.45,
 	},
 	VERSION_FROM => 'lib/CGI/Application/Bouquet/Rose.pm',
