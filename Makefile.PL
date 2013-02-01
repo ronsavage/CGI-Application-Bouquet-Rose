@@ -32,7 +32,7 @@ WriteMakefile
 		File::Spec       => 0,
 		HTML::Template   => 0,
 		Test::More     => 0.94,
-		Test::Pod        => 1.45,
+#		Test::Pod        => 1.45, # Make it optional. See t/pod.t
 	},
 	VERSION_FROM => 'lib/CGI/Application/Bouquet/Rose.pm',
 );
