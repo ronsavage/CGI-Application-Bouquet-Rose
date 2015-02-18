@@ -6,7 +6,7 @@
    "dynamic_config" : 0,
    "generated_by" : "Module::Build version 0.4211",
    "license" : [
-      "artistic_1"
+      "artistic_2"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -38,18 +38,18 @@
    "provides" : {
       "CGI::Application::Bouquet::Rose" : {
          "file" : "lib/CGI/Application/Bouquet/Rose.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       },
       "CGI::Application::Bouquet::Rose::Config" : {
          "file" : "lib/CGI/Application/Bouquet/Rose/Config.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "license" : [
-         "http://www.perlfoundation.org/artistic_license_1_0"
+         "http://www.perlfoundation.org/artistic_license_2_0"
       ]
    },
-   "version" : "1.05"
+   "version" : "1.06"
 }
