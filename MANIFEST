@@ -10,7 +10,6 @@ MANIFEST			This list of files
 META.json
 META.yml
 README
-t/pod.t
 t/test.t
 templates/cgiapp.pm.tmpl
 templates/content.tmpl
@@ -22,3 +21,4 @@ templates/run.mode.pm.tmpl
 templates/search.fcgi.tmpl
 templates/search.form.tmpl
 templates/web.page.tmpl
+xt/author/pod.t

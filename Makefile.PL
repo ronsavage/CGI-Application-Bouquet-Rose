@@ -1,5 +1,7 @@
 use ExtUtils::MakeMaker;
 
+# ----------------
+
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
@@ -9,7 +11,7 @@ WriteMakefile
 	(
 		AUTHOR   => 'Ron Savage (ron@savage.net.au)',
 		ABSTRACT => 'Generate a set of CGI::Application-based classes',
-    ) : (),
+		) : (),
 	clean =>
 	{
 		FILES => 'blib/* Makefile MANIFEST CGI-Application-Bouquet-Rose-*'
@@ -25,14 +27,14 @@ WriteMakefile
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
-		Carp             => 0,
-		Config::IniFiles => 0,
-		File::Copy       => 0,
-		File::Path       => 0,
-		File::Spec       => 0,
-		HTML::Template   => 0,
-		Test::More     => 0.94,
-#		Test::Pod        => 1.45, # Make it optional. See t/pod.t
+		'Carp' => 0,
+		'Config::IniFiles' => 0,
+		'File::Copy' => 0,
+		'File::Path' => 0,
+		'File::Spec' => 0,
+		'HTML::Template' => 0,
+		'Test::More' => 1.001014,
+		'Test::Pod' => 1.48,
 	},
 	VERSION_FROM => 'lib/CGI/Application/Bouquet/Rose.pm',
 );
