@@ -34,7 +34,6 @@ my(%params) =
 		'Getopt::Long'		=> 0,
 		'HTML::Template'	=> 0,
 		'Moo'				=> 0,
-		'perl'				=> 5.005_62,
 		'Pod::Usage'		=> 0,
 		'strict'			=> 0,
 		'Types::Standard'	=> 0,
@@ -76,6 +75,11 @@ if ($ExtUtils::MakeMaker::VERSION ge '6.46')
 			},
 		},
 	};
+}
+
+if ($ExtUtils::MakeMaker::VERSION ge '6.48')
+{
+	$params{MIN_PERL_VERSION} = 5.005_62;
 }
 
 WriteMakefile(%params);
