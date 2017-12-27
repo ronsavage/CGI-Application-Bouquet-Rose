@@ -26,12 +26,14 @@ my(%params) =
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
-		'Carp' => 0,
-		'Config::IniFiles' => 0,
-		'File::Copy' => 0,
-		'File::Path' => 0,
-		'File::Spec' => 0,
-		'HTML::Template' => 0,
+		'Carp'				=> 0,
+		'Config::IniFiles'	=> 0,
+		'File::Copy'		=> 0,
+		'File::Path'		=> 0,
+		'File::Spec'		=> 0,
+		'HTML::Template'	=> 0,
+		'Moo'				=> 0,
+		'Types::Standard'	=> 0,
 	},
 	TEST_REQUIRES =>
 	{

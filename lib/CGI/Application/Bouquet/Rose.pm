@@ -17,40 +17,105 @@ use HTML::Template;
 
 use Moo;
 
+use Types::Standard qw/Int Str/;
+
+has doc_root =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
+has exclude =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
+has module =>
+(
+	default		=> sub {return 'Local::Wines'},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
+has output_dir =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
+has remove =>
+(
+	default		=> sub {return 0},
+	is			=> 'rw',
+	isa			=> Int,
+	required	=> 0,
+);
+
+has output_dir =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
+has tmpl_path =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
+has verbose =>
+(
+	default		=> sub {return 0},
+	is			=> 'rw',
+	isa			=> Int,
+	required	=> 0,
+);
+
 our $VERSION = '1.06';
 
 # -----------------------------------------------
 
-# Preloaded methods go here.
-
-# -----------------------------------------------
-
-# Encapsulated class data.
-
+sub BUILD
 {
-	my(%_attr_data) =
-	(
-	 _docroot    => undef,
-	 _exclude    => undef,
-	 _module     => 'Local::Wines',
-	 _output_dir => undef,
-	 _remove     => 0,
-	 _tmpl_path  => undef,
-	 _verbose    => undef,
-	);
+	my($self) = @_;
 
-	sub _default_for
-	{
-		my($self, $attr_name) = @_;
+	$self -> prefix($self -> module . '\::CGI');
+	$self -> dir_name($self -> output_dir . '\::' . $self -> prefix);
+	$self -> dir_name(File::Spec -> catdir(split(/::/, $self -> dir_name) ) );
+	$self -> db_module($self -> module . '\::Base\::DB');
 
-		$_attr_data{$attr_name};
-	}
+	my($file)	= $self -> db_module;
+	$file		= File::Spec -> catdir(split(/::/, $file) );
 
-	sub _standard_keys
-	{
-		keys %_attr_data;
-	}
-}
+	$self -> log('doc_root:        ' . $self -> doc_root);
+	$self -> log('exclude:         ' . $self -> exclude);
+	$self -> log('module:          ' . $self -> module);
+	$self -> log('output_dir:      ' . $self -> output_dir);
+	$self -> log('prefix:          ' . $self -> prefix);
+	$self -> log('remove:          ' . $self -> remove);
+	$self -> log('tmpl_path:       ' . $self -> tmpl_path);
+	$self -> log('verbose:         ' . $self -> verbose);
+	$self -> log('Working dir:     ' . $self -> dir_name);
+	$self -> log('Rose::DB module: ' . $self -> db_module);
+
+	# Ensure we can load the user's Rose::DB-based module.
+
+	eval "require '$file.pm'";
+	croak $@ if $@;
+
+}	# End of BUILD.
 
 # -----------------------------------------------
 
@@ -58,7 +123,7 @@ sub log
 {
 	my($self, $message) = @_;
 
-	if ($$self{'_verbose'})
+	if ($self -> verbose)
 	{
 		print STDERR "$message\n";
 	}
@@ -67,80 +132,22 @@ sub log
 
 # -----------------------------------------------
 
-sub new
-{
-	my($class, $arg) = @_;
-	my($self)        = bless({}, $class);
-	my($config)      = CGI::Application::Bouquet::Rose::Config -> new();
-
-	for my $attr_name ($self -> _standard_keys() )
-	{
-		my($arg_name) = $attr_name =~ /^_(.*)/;
-
-		if (exists($$arg{$arg_name}) )
-		{
-			$$self{$attr_name} = $$arg{$arg_name};
-		}
-		else
-		{
-			$$self{$attr_name} = $self -> _default_for($attr_name);
-		}
-
-		if (! defined $$self{$attr_name})
-		{
-			# The '' is for when the user chops the option out of the config file,
-			# and also refuses to specify a value on the command line.
-
-			my($method)        = "get_$arg_name";
-			$$self{$attr_name} = $config -> $method() || '';
-		}
-	}
-
-	$$self{'_prefix'}    = "$$self{'_module'}\::CGI";
-	$$self{'_dir_name'}  = "$$self{'_output_dir'}\::$$self{'_prefix'}";
-	$$self{'_dir_name'}  = File::Spec -> catdir(split(/::/, $$self{'_dir_name'}) );
-	$$self{'_db_module'} = "$$self{'_module'}\::Base\::DB";;
-	my($file)            = $$self{'_db_module'};
-	$file                =  File::Spec -> catdir(split(/::/, $file) );
-
-	$self -> log("docroot:         $$self{'_docroot'}");
-	$self -> log("exclude:         $$self{'_exclude'}");
-	$self -> log("module:          $$self{'_module'}");
-	$self -> log("output_dir:      $$self{'_output_dir'}");
-	$self -> log("prefix:          $$self{'_prefix'}");
-	$self -> log("remove:          $$self{'_remove'}");
-	$self -> log("tmpl_path:       $$self{'_tmpl_path'}");
-	$self -> log("verbose:         $$self{'_verbose'}");
-	$self -> log("Working dir:     $$self{'_dir_name'}");
-	$self -> log("Rose::DB module: $$self{'_db_module'}");
-
-	# Ensure we can load the user's Rose::DB-based module.
-
-	eval "require '$file.pm'";
-	croak $@ if $@;
-
-	return $self;
-
-}	# End of new.
-
-# -----------------------------------------------
-
 sub run
 {
 	my($self) = @_;
 
-	if ($$self{'_remove'})
+	if ($self -> remove)
 	{
-		$self -> log("Removing:        $$self{'_dir_name'}");
+		$self -> log('Removing:        ' . $self -> dir_name);
 		$self -> log('Success');
 
-		rmtree([$$self{'_dir_name'}]);
+		rmtree([$self -> dir_name]);
 
 		return 0;
 	}
 
-	my($rose_db) = $$self{'_db_module'} -> new();
-	my(@table)   = $rose_db -> list_tables();
+	my($rose_db)	= $self -> db_module -> new();
+	my(@table)		= $rose_db -> list_tables();
 
 	my($data);
 	my($module, @module);
@@ -157,8 +164,8 @@ sub run
 
 		push @module,
 		{
-			module_name => $module,
-			table_name  => $table,
+			module_name	=> $module,
+			table_name	=> $table,
 		}
 	}
 
@@ -166,11 +173,11 @@ sub run
 
 	$self -> log('Processing templates:');
 
-	my(@component)      = split(/::/, lc $$self{'_module'});
-	my($fcgi_name)      = $component[- 1];
-	my(@real_tmpl_path) = split(/::/, lc $$self{'_module'});
-	my($real_tmpl_path) = File::Spec -> catdir('assets', 'templates');
-	$real_tmpl_path     = File::Spec -> catdir($$self{'_docroot'}, $real_tmpl_path, @real_tmpl_path);
+	my(@component)		= split(/::/, lc $self -> module);
+	my($fcgi_name)		= $component[- 1];
+	my(@real_tmpl_path)	= split(/::/, lc $self -> module);
+	my($real_tmpl_path)	= File::Spec -> catdir('assets', 'templates');
+	$real_tmpl_path		= File::Spec -> catdir($self -> doc_root, $real_tmpl_path, @real_tmpl_path);
 
 	$self -> log("Path to run-time templates: $real_tmpl_path");
 
@@ -190,7 +197,7 @@ sub run
 
 		$self -> log("Copying $output_file_name");
 
-		copy("$$self{'_tmpl_path'}/$_", $output_file_name);
+		copy($self -> tmpl_path . "/$_", $output_file_name);
 	}
 
 	# Process: search.fcgi.tmpl.
@@ -201,10 +208,10 @@ sub run
 
 	mkpath([$output_dir_name], 0, 0744);
 
-	$output_file_name = File::Spec -> catfile($output_dir_name, "$fcgi_name.fcgi");
-	my($template)     = HTML::Template -> new(filename => File::Spec -> catfile($$self{'_tmpl_path'}, 'search.fcgi.tmpl') );
+	$output_file_name	= File::Spec -> catfile($output_dir_name, "$fcgi_name.fcgi");
+	my($template)		= HTML::Template -> new(filename => File::Spec -> catfile($self -> tmpl_path, 'search.fcgi.tmpl') );
 
-	$template -> param(prefix => $$self{'_prefix'});
+	$template -> param(prefix => $self -> prefix);
 
 	$self -> log("Creating $output_file_name");
 
@@ -214,15 +221,16 @@ sub run
 
 	# Process: CGI/CGIApp.pm.
 
-	$self -> log("Creating $$self{'_dir_name'}");
+	$self -> log('Creating ' . $self -> dir_name);
 
-	mkpath([$$self{'_dir_name'}], 0, 0744);
+	mkpath([$self -> dir_name], 0, 0744);
 
-	$output_file_name   = File::Spec -> catfile($$self{'_dir_name'}, 'CGIApp.pm');
-	$template           = HTML::Template -> new(filename => File::Spec -> catfile($$self{'_tmpl_path'}, 'cgiapp.pm.tmpl') );
-	$template -> param(module    => $$self{'_module'});
-	$template -> param(prefix    => $$self{'_prefix'});
-	$template -> param(tmpl_path => $real_tmpl_path);
+	$output_file_name	= File::Spec -> catfile($self -> dir_name, 'CGIApp.pm');
+	$template			= HTML::Template -> new(filename => File::Spec -> catfile($self -> tmpl_path, 'cgiapp.pm.tmpl') );
+
+	$template -> param(module		=> $self -> module);
+	$template -> param(prefix		=> $self -> prefix);
+	$template -> param(tmpl_path	=> $real_tmpl_path);
 
 	$self -> log("Creating $output_file_name");
 
@@ -232,10 +240,10 @@ sub run
 
 	# Process: CGI/Dispatcher.pm.
 
-	$output_file_name = File::Spec -> catfile($$self{'_dir_name'}, 'Dispatcher.pm');
-	$template         = HTML::Template -> new(filename => File::Spec -> catfile($$self{'_tmpl_path'}, 'dispatcher.pm.tmpl') );
+	$output_file_name	= File::Spec -> catfile($self -> dir_name, 'Dispatcher.pm');
+	$template			= HTML::Template -> new(filename => File::Spec -> catfile($self -> tmpl_path, 'dispatcher.pm.tmpl') );
 
-	$template -> param(prefix => $$self{'_prefix'});
+	$template -> param(prefix => $self -> prefix);
 
 	$self -> log("Creating $output_file_name");
 
@@ -245,10 +253,10 @@ sub run
 
 	# Process: CGI/MainMenu.pm.
 
-	$output_file_name = File::Spec -> catfile($$self{'_dir_name'}, 'MainMenu.pm');
-	$template         = HTML::Template -> new(filename => File::Spec -> catfile($$self{'_tmpl_path'}, 'main.menu.pm.tmpl') );
+	$output_file_name	= File::Spec -> catfile($self -> dir_name, 'MainMenu.pm');
+	$template			= HTML::Template -> new(filename => File::Spec -> catfile($self -> tmpl_path, 'main.menu.pm.tmpl') );
 
-	$template -> param(prefix => $$self{'_prefix'});
+	$template -> param(prefix => $self -> prefix);
 
 	$self -> log("Creating $output_file_name");
 
@@ -258,19 +266,19 @@ sub run
 
 	# Process: CGI/CGIApp/*.pm (1 per table).
 
-	$output_dir_name = File::Spec -> catdir($$self{'_dir_name'}, 'CGIApp');
+	$output_dir_name = File::Spec -> catdir($self -> dir_name, 'CGIApp');
 
 	$self -> log("Creating $output_dir_name");
 
 	mkpath([$output_dir_name], 0, 0744);
 
-	$template = HTML::Template -> new(filename => File::Spec -> catfile($$self{'_tmpl_path'}, 'generator.pl.tmpl') );
+	$template = HTML::Template -> new(filename => File::Spec -> catfile($self -> tmpl_path, 'generator.pl.tmpl') );
 
-	$template -> param(dir_name    => $output_dir_name);
-	$template -> param(module_loop => \@module);
-	$template -> param(module      => $$self{'_module'});
-	$template -> param(tmpl_path   => $$self{'_tmpl_path'});
-	$template -> param(verbose     => $$self{'_verbose'} || 0);
+	$template -> param(dir_name		=> $output_dir_name);
+	$template -> param(module_loop	=> \@module);
+	$template -> param(module		=> $self -> module);
+	$template -> param(tmpl_path	=> $self -> tmpl_path);
+	$template -> param(verbose		=> $self -> verbose || 0);
 
 	print $template -> output();
 
@@ -308,7 +316,7 @@ must restrict usage of the generated code to trusted persons.
 	shell> scripts/run.cgi.app.gen.pl > scripts/run.cgi.pl
 
 	Step 4: This is the log from run.cgi.app.gen.pl:
-	docroot:         /var/www
+	doc_root:         /var/www
 	exclude:         ^(?:information_schema|pg_|sql_)
 	module:          Local::Wines
 	output_dir:      ./lib

@@ -8,6 +8,7 @@ Revision history for Perl extension CGI::Application::Bouquet::Rose.
 	- Change licence from Artistic to Perl.
 	- Put module on github at https://github.com/ronsavage/CGI-Application-Bouquet-Rose.
 	- Use Moo.
+	- Option to new, docroot, changed to doc_root, to match the docs.
 
 1.06  2015-02-18T16:32:00
 	- Rename CHANGES to Changes.
