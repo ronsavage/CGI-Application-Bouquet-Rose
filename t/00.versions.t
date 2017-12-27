@@ -14,9 +14,14 @@ use Config::IniFiles;
 use File::Copy;
 use File::Path;
 use File::Spec;
+use Getopt::Long;
 use HTML::Template;
 use Moo;
+use perl;
+use Pod::Usage;
+use strict;
 use Types::Standard;
+use warnings;
 
 # ----------------------
 
@@ -29,9 +34,14 @@ my(@modules) = qw
 	File::Copy
 	File::Path
 	File::Spec
+	Getopt::Long
 	HTML::Template
 	Moo
+	perl
+	Pod::Usage
+	strict
 	Types::Standard
+	warnings
 /;
 
 diag "Testing CGI::Application::Bouquet::Rose V $CGI::Application::Bouquet::Rose::VERSION";
