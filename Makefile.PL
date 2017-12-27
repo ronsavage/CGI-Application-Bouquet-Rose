@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
-WriteMakefile
+my(%params) =
 (
 	($] ge '5.005') ?
 	(
@@ -21,9 +21,8 @@ WriteMakefile
 		COMPRESS => 'gzip',
 		SUFFIX   => 'gz'
 	},
-	DISTNAME  => 'CGI::Application::Bouquet::Rose',
-	NAME      => 'CGI-Application-Bouquet-Rose',
-	LICENSE   => 'artistic_2',
+	DISTNAME  => 'CGI-Application-Bouquet-Rose',
+	NAME      => 'CGI::Application::Bouquet::Rose',
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
@@ -33,8 +32,43 @@ WriteMakefile
 		'File::Path' => 0,
 		'File::Spec' => 0,
 		'HTML::Template' => 0,
-		'Test::More' => 1.001014,
+	},
+	TEST_REQUIRES =>
+	{
+		'Test::More' => 1.001012,
 		'Test::Pod' => 1.48,
 	},
 	VERSION_FROM => 'lib/CGI/Application/Bouquet/Rose.pm',
 );
+
+if ( ($ExtUtils::MakeMaker::VERSION =~ /^\d\.\d\d$/) && ($ExtUtils::MakeMaker::VERSION > 6.30) )
+{
+	$params{LICENSE} = 'perl';
+}
+
+if ($ExtUtils::MakeMaker::VERSION ge '6.46')
+{
+	$params{META_MERGE} =
+	{
+		'meta-spec' =>
+		{
+			version => 2,
+		},
+		resources =>
+		{
+			bugtracker =>
+			{
+				web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=WWW-Garden-Design',
+			},
+			license    => 'http://dev.perl.org/licenses/',
+			repository =>
+			{
+				type => 'git',
+				url  => 'https://github.com/ronsavage/CGI-Application-Bouquet-Rose.git',
+				web  => 'https://github.com/ronsavage/CGI-Application-Bouquet-Rose',
+			},
+		},
+	};
+}
+
+WriteMakefile(%params);
