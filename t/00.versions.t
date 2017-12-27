@@ -5,19 +5,18 @@ use warnings;
 
 # I tried 'require'-ing modules but that did not work.
 
-use SVG::Grid; # For the version #.
+use CGI::Application::Bouquet::Rose; # For the version #.
 
 use Test::More;
 
-use File::Slurper;
-use Getopt::Long;
+use Carp;
+use Config::IniFiles;
+use File::Copy;
+use File::Path;
+use File::Spec;
+use HTML::Template;
 use Moo;
-use Pod::Usage;
-use strict;
-use SVG;
 use Types::Standard;
-use utf8;
-use warnings;
 
 # ----------------------
 
@@ -25,18 +24,17 @@ pass('All external modules loaded');
 
 my(@modules) = qw
 /
-	File::Slurper
-	Getopt::Long
+	Carp
+	Config::IniFiles
+	File::Copy
+	File::Path
+	File::Spec
+	HTML::Template
 	Moo
-	Pod::Usage
-	strict
-	SVG
 	Types::Standard
-	utf8
-	warnings
 /;
 
-diag "Testing SVG::Grid V $SVG::Grid::VERSION";
+diag "Testing CGI::Application::Bouquet::Rose V $CGI::Application::Bouquet::Rose::VERSION";
 
 for my $module (@modules)
 {
