@@ -3,8 +3,6 @@ package CGI::Application::Bouquet::Rose::Config;
 use strict;
 use warnings;
 
-require Exporter;
-
 use Carp;
 
 use Config::IniFiles;

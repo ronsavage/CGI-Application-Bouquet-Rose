@@ -31,9 +31,14 @@ my(%params) =
 		'File::Copy'		=> 0,
 		'File::Path'		=> 0,
 		'File::Spec'		=> 0,
+		'Getopt::Long'		=> 0,
 		'HTML::Template'	=> 0,
 		'Moo'				=> 0,
+		'perl'				=> 5.005_62,
+		'Pod::Usage'		=> 0,
+		'strict'			=> 0,
 		'Types::Standard'	=> 0,
+		'warnings'			=> 0,
 	},
 	TEST_REQUIRES =>
 	{
