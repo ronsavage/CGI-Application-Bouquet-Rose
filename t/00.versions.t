@@ -17,7 +17,6 @@ use File::Spec;
 use Getopt::Long;
 use HTML::Template;
 use Moo;
-use perl;
 use Pod::Usage;
 use strict;
 use Types::Standard;
@@ -37,7 +36,6 @@ my(@modules) = qw
 	Getopt::Long
 	HTML::Template
 	Moo
-	perl
 	Pod::Usage
 	strict
 	Types::Standard
