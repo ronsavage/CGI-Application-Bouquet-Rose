@@ -3,8 +3,6 @@ package CGI::Application::Bouquet::Rose;
 use strict;
 use warnings;
 
-require 5.005_62;
-
 use Carp;
 
 use CGI::Application::Bouquet::Rose::Config;
