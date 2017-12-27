@@ -67,27 +67,19 @@ has output_dir =>
 	required	=> 0,
 );
 
-has remove =>
-(
-	default		=> sub {return 0},
-	is			=> 'rw',
-	isa			=> Int,
-	required	=> 0,
-);
-
-has output_dir =>
-(
-	default		=> sub {return ''},
-	is			=> 'rw',
-	isa			=> Str,
-	required	=> 0,
-);
-
 has prefix =>
 (
 	default		=> sub {return ''},
 	is			=> 'rw',
 	isa			=> Str,
+	required	=> 0,
+);
+
+has remove =>
+(
+	default		=> sub {return 0},
+	is			=> 'rw',
+	isa			=> Int,
 	required	=> 0,
 );
 
