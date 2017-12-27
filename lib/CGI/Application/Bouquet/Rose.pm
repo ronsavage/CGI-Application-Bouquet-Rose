@@ -19,6 +19,22 @@ use Moo;
 
 use Types::Standard qw/Int Str/;
 
+has db_module =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
+has dir_name =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
 has doc_root =>
 (
 	default		=> sub {return ''},
@@ -67,6 +83,14 @@ has output_dir =>
 	required	=> 0,
 );
 
+has prefix =>
+(
+	default		=> sub {return ''},
+	is			=> 'rw',
+	isa			=> Str,
+	required	=> 0,
+);
+
 has tmpl_path =>
 (
 	default		=> sub {return ''},
@@ -83,7 +107,7 @@ has verbose =>
 	required	=> 0,
 );
 
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 
 # -----------------------------------------------
 
